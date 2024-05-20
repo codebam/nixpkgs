@@ -16607,6 +16607,8 @@ self: super: with self; {
 
   validators = callPackage ../development/python-modules/validators { };
 
+  validity = callPackage ../development/python-modules/validity { };
+
   validobj = callPackage ../development/python-modules/validobj { };
 
   validphys2 = callPackage ../development/python-modules/validphys2 { };
