@@ -62,7 +62,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "flatpak";
-  version = "1.14.10";
+  version = "1.15.91";
 
   # TODO: split out lib once we figure out what to do with triggerdir
   outputs = [
