@@ -203,7 +203,7 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.mesonOption "profile_dir" (placeholder "out" + "/etc/profile.d"))
     (lib.mesonOption "system_bubblewrap" (lib.getExe bubblewrap))
     (lib.mesonOption "system_dbus_proxy" (lib.getExe xdg-dbus-proxy))
-    (lib.mesonOption "system_fusermount" (lib.getExe' fuse3 "fusermount3"))
+    (lib.mesonOption "system_fusermount" "/run/wrappers/bin/fusermount3")
     (lib.mesonOption "system_install_dir" "/var/lib/flatpak")
   ];
 
