@@ -176,4 +176,12 @@ rec {
       lcms2
     ];
   };
+
+  wlroots_0_20 = generic {
+    version = "0c272a38423679e980d4cd39affc202fd48c0f6d";
+    hash = "sha256-IkE5B4RIj9xJBmoH5ubDEhtc45kCbJeVY96GurTNl8Y=";
+    extraBuildInputs = [
+      lcms2
+    ];
+  };
 }

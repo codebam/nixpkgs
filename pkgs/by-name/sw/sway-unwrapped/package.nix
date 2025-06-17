@@ -30,12 +30,13 @@
   xorg,
   systemdSupport ? lib.meta.availableOn stdenv.hostPlatform systemd,
   systemd,
+  fetchpatch,
   trayEnabled ? systemdSupport,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "sway-unwrapped";
-  version = "1.11";
+  version = "1.11-unstable";
 
   inherit
     enableXWayland
@@ -46,12 +47,17 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "swaywm";
     repo = "sway";
-    rev = finalAttrs.version;
-    hash = "sha256-xMrexVDpgkGnvAAglshsh7HjvcbU2/Q6JLUd5J487qg=";
+    rev = "170c9c9525f54e8c1ba03847d5f9b01fc24b8c89";
+    hash = "sha256-ziKsVin8Ze00ZkI4c6TL9sZgNCkdnow75KXixkuhCpM=";
   };
 
   patches =
     [
+      (fetchpatch {
+        name = "hdr10.patch";
+        url = "https://p.seanbehan.ca/4f68c";
+        hash = "sha256-CucxnK/rcACmddYQKjkGopboQ3IG/Skf6EA5WRBUWb8=";
+      })
       ./load-configuration-from-etc.patch
 
       (replaceVars ./fix-paths.patch {
