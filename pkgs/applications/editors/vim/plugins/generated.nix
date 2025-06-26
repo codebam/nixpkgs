@@ -4472,6 +4472,19 @@ final: prev: {
     meta.hydraPlatforms = [ ];
   };
 
+  easymode-nvim = buildVimPlugin {
+    pname = "easymode.nvim";
+    version = "2025-06-26";
+    src = fetchFromGitHub {
+      owner = "codebam";
+      repo = "easymode.nvim";
+      rev = "a429022c65a6ab36db273296cdbb88a03d8e5c40";
+      sha256 = "1p9zsw5qywd8lp1flw07a6gf7v97jl4nm3jji8p4xy4vizmxpvlq";
+    };
+    meta.homepage = "https://github.com/codebam/easymode.nvim/";
+    meta.hydraPlatforms = [ ];
+  };
+
   echodoc-vim = buildVimPlugin {
     pname = "echodoc.vim";
     version = "2022-11-27";
