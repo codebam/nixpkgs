@@ -350,6 +350,7 @@ buildPythonPackage.override { stdenv = torch.stdenv; } (finalAttrs: {
     ./0003-propagate-pythonpath.patch
     ./0005-drop-intel-reqs.patch
     ./0006-drop-rocm-extra-reqs.patch
+    ./fix-cpu-l2-cache.patch
   ];
 
   postPatch = ''

@@ -1,0 +1,36 @@
+diff --git a/csrc/cpu/mla_decode.cpp b/csrc/cpu/mla_decode.cpp
+index bd489b4..10c69ac 100644
+--- a/csrc/cpu/mla_decode.cpp
++++ b/csrc/cpu/mla_decode.cpp
+@@ -54,6 +54,13 @@ struct KernelVecType<c10::BFloat16> {
+   using qk_vec_type = vec_op::FP32Vec16;
+   using v_load_vec_type = vec_op::BF16Vec16;
+ };
++#else
++template <>
++struct KernelVecType<c10::BFloat16> {
++  using qk_load_vec_type = vec_op::BF16Vec16;
++  using qk_vec_type = vec_op::FP32Vec16;
++  using v_load_vec_type = vec_op::BF16Vec16;
++};
+ #endif
+ 
+ template <int HEAD_DIM, int V_HEAD_DIM, int BLOCK_SIZE, int HEAD_UNROLL,
+diff --git a/csrc/cpu/utils.hpp b/csrc/cpu/utils.hpp
+index 4a4c50e..21b59d9 100644
+--- a/csrc/cpu/utils.hpp
++++ b/csrc/cpu/utils.hpp
+@@ -55,8 +55,11 @@ struct Counter {
+ 
+ inline int64_t get_available_l2_size() {
+   static int64_t size = []() {
+-    const uint32_t l2_cache_size = at::cpu::L2_cache_size();
+-    return l2_cache_size >> 1;  // use 50% of L2 cache
++    long l2_cache_size = sysconf(_SC_LEVEL2_CACHE_SIZE);
++    if (l2_cache_size <= 0) {
++      l2_cache_size = 2 * 1024 * 1024;  // fallback to 2MB
++    }
++    return (int64_t)l2_cache_size >> 1;  // use 50% of L2 cache
+   }();
+   return size;
+ }
